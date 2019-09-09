@@ -1,49 +1,159 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+    <title>reveal.js</title>
 
-		<link rel="stylesheet" href="css/reset.css">
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/moon.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/monokai.css">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/monokai.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section class="introduction">
+            <h1>JavaScript</h1>
+            <h3>
+                The Weird Parts
+            </h3>
+            <p>
+                <small>By Ahmed Ahmed</small>
+            </p>
+        </section>
+        <!--white-space-->
+        <section class="white-space">
+            <section>
+                <h2>Does Whitespace matters</h2>
+                <p>
+                    The short Answer: ¯\_(ツ)_/¯
+                </p>
+            </section>
+            <section>
+                <h2>Does Whitespace matters</h2>
+                <p>
+                    The following code is completely valid. Whitespace will not matters
+                    it will print 2
+                </p>
+                <p data-markdown>
+                    <script type="text/template">
+                        ```JavaScript
+                        console.log(
+                        		1
+                        				+
+                        						1
+                        							)
+                        ```
+                    </script>
+                </p>
+            </section>
+            <section>
+                <h2>Does Whitespace matters</h2>
+                <p>
+                    But this is not always the case
+                </p>
+                <p data-markdown>
+                    <script type="text/template">
+                        ```JavaScript
+                        2.3.toFixed(1)  //"2.3"
+                        2 .toFixed(1)  // "2"
+                        2.toFixed(1) // Uncaught SyntaxError: Invalid or unexpected token
+                        ```
+                    </script>
+                </p>
+				<p class="fragment">
+					The problem is JavaScript get confused cause the "."
+					after no is used with number with decimals
+				</p>
 
-		<script src="js/reveal.js"></script>
+			</section>
+        </section>
+        <!--Automatic SemiColon-->
+        <section class="automatic-semicolon">
+            <section>
+                <h2>Automatic SemiColon Insertion</h2>
+                <blockquote class="fragment">Certain ECMAScript statements must be terminated with semicolons. Such
+                    semicolons may always appear explicitly in the source text.
+                </blockquote>
+                <blockquote class="fragment">For convenience, however, such semicolons may be omitted from the source
+                    text in certain situations.
+                </blockquote>
+                </blockquote>
+            </section>
+            <section>
+				<h2>Automatic SemiColon Insertion</h2>
+				<p>This is why code like this works:</p>
+                <p data-markdown>
+                    <script type="text/template">
+                        ```JavaScript
+                        let cat = 1  //Missing required semicolon
+                        let dog = 2  //Invalid syntax, but it works!
+                        let pig = 3
+                        ```
+                    </script>
+                </p>
+            </section>
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true }
-				]
-			});
-		</script>
-	</body>
+            <section>
+				<h2>Automatic SemiColon Insertion</h2>
+				<p>But will cause a problem in here:</p>
+                <p data-markdown>
+                    <script type="text/template">
+                        ```JavaScript
+function doThing(color) {
+	return
+		{
+			favColor: color
+		}
+}
+                        ```
+                    </script>
+                </p>
+                <p class="fragment">JavaScript adds a semicolon after the return, which results in a return value of `undefined`</p>
+                <p class="fragment" data-markdown>
+                    <script type="text/template">
+                        ```JavaScript
+return;
+{
+	favColor: color
+};
+                        ```
+                    </script>
+                </p>
+            </section>
+        </section>
+
+    </div>
+
+</div>
+
+<script src="js/reveal.js"></script>
+
+<script>
+    // More info about config & dependencies:
+    // - https://github.com/hakimel/reveal.js#configuration
+    // - https://github.com/hakimel/reveal.js#dependencies
+    Reveal.initialize({
+        dependencies: [
+            {src: 'plugin/markdown/marked.js'},
+            {src: 'plugin/markdown/markdown.js'},
+            {src: 'plugin/notes/notes.js', async: true},
+            {src: 'plugin/highlight/highlight.js', async: true}
+        ]
+    });
+</script>
+</body>
 </html>
